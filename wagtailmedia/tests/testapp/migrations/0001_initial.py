@@ -75,6 +75,7 @@ class Migration(migrations.Migration):
                 ('uploaded_by_user',
                  models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL,
                                    to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user')),
+                ('fancy_caption', wagtail.core.fields.RichTextField(blank=True)),
             ],
             options={
                 'verbose_name': 'media',

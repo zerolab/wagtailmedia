@@ -5,6 +5,7 @@
 
 {% block extra_js %}
     {{ block.super }}
+    {{ form.media.js }}
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
@@ -16,13 +17,18 @@
     </script>
 {% endblock %}
 
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
 {% block content %}
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=media.title icon="media" usage_object=media %}
 
     {% block form_row %}
         <div class="row row-flush nice-padding">
-    
+
             <div class="col10 divider-after">
                 <form action="{% url 'wagtailmedia:edit' media.id %}" method="POST" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
@@ -52,7 +58,7 @@
                             <dt>{% trans "Filesize" %}</dt>
                             <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
                         {% endif %}
-        
+
                         {% usage_count_enabled as uc_enabled %}
                         {% if uc_enabled %}
                             <dt>{% trans "Usage" %}</dt>
