@@ -3,20 +3,20 @@ name: Nightly Wagtail test
 on:
   schedule:
     - cron: "0 0 * * *"
-    
+
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:10.8
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
@@ -40,7 +40,7 @@ jobs:
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
           DATABASE_PASS: postgres
-          
+
       - name: Send Slack notification
         if: steps.test.outcome == "failure"
         run: |
